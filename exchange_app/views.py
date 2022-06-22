@@ -19,10 +19,13 @@ def exchange(request):
         to_curr = request.POST.get('to-curr')
 
         converted_amount = round((currencies[to_curr] / currencies[from_curr]) * float(from_amount), 2)
+
         if float(from_amount) < converted_amount:
             course = round(currencies[to_curr] / currencies[from_curr], 4)
         elif float(from_amount) > converted_amount:
             course = round(currencies[from_curr] / currencies[to_curr], 4)
+        elif from_amount == to_curr:
+            course = 1
 
         context = {
             'from_curr': from_curr,
